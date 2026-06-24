@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CORTEX VR — A next-generation VR experience platform built around human cognition, empathy, and cross-modal creativity. By Pranav Sarotra.">
+  <meta name="author" content="Pranav Sarotra">
+  <title>CORTEX VR — Redefine Perception</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+</head>
+<body>
+
+  <!-- ===== MESH GRADIENT BACKGROUND ===== -->
+  <div class="mesh-bg" aria-hidden="true"></div>
+
+  <!-- ===== PARTICLE CANVAS ===== -->
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+  <!-- ===== SPLASH / ONBOARDING (Screen 1) ===== -->
+  <div class="splash" id="splash-screen">
+    <canvas class="splash__particles" id="splash-particles"></canvas>
+    <div class="splash__logo">CORTEX VR</div>
+    <p class="splash__tagline">Redefine Perception. Experience Beyond Reality.</p>
+    <button class="splash__enter-btn" id="enter-app" onclick="dismissSplash()">Enter Experience →</button>
+    <p class="text-xs text-muted" style="margin-top: 1.5rem; opacity: 0; animation: fadeSlideUp 0.8s ease 1.6s forwards;">
+      By <span style="color: var(--accent-mint); font-weight: 600;">Pranav Sarotra</span> · ITS69004 HCI
+    </p>
+  </div>
+
+  <!-- ===== MAIN APPLICATION ===== -->
+  <div class="app-container" id="app" style="opacity: 0; transition: opacity 0.8s ease;">
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav class="nav" id="main-nav">
+      <div class="nav__inner">
+        <a href="#" class="nav__logo" onclick="navigateTo('home'); return false;">
+          <div class="nav__logo-icon">C</div>
+          CORTEX <span style="font-weight: 300; opacity: 0.6;">VR</span>
+        </a>
+        <ul class="nav__links" id="nav-links">
+          <li><span class="nav__link nav__link--active" data-screen="home" onclick="navigateTo('home')">Home</span></li>
+          <li><span class="nav__link" data-screen="empathos" onclick="navigateTo('empathos')">EmpathOS</span></li>
+          <li><span class="nav__link" data-screen="biosync" onclick="navigateTo('biosync')">BioSync</span></li>
+          <li><span class="nav__link" data-screen="mnemo" onclick="navigateTo('mnemo')">Mnemo</span></li>
+          <li><span class="nav__link" data-screen="chronolens" onclick="navigateTo('chronolens')">ChronoLens</span></li>
+          <li><span class="nav__link" data-screen="synaesthesia" onclick="navigateTo('synaesthesia')">SynAesthesia</span></li>
+        </ul>
+        <div class="nav__toggle" id="nav-toggle" onclick="toggleMobileNav()">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ================================================================
+         SCREEN 2: HOME / DASHBOARD
+         ================================================================ -->
+    <section class="screen screen--active" id="screen-home">
+
+      <!-- Hero -->
+      <div class="hero">
+        <div class="container">
+          <div class="hero__content">
+            <div class="hero__badge reveal">
+              <span class="hero__badge-dot"></span>
+              Next-Gen VR Platform
+            </div>
+            <h1 class="hero__title reveal reveal--delay-1">
+              Experience Beyond<br>
+              <span class="heading-hero-gradient">Human Limits</span>
+            </h1>
+            <p class="hero__subtitle reveal reveal--delay-2">
+              CORTEX VR bridges neuroscience and virtual reality — empowering empathy, 
+              supercharging memory, bending time, and unlocking creativity through 
+              five revolutionary cognitive VR experiences.
+            </p>
+            <div class="hero__actions reveal reveal--delay-3">
+              <button class="btn btn--primary btn--lg" onclick="navigateTo('empathos')">
+                Explore Features →
+              </button>
+              <button class="btn btn--outline btn--lg" onclick="document.getElementById('features-section').scrollIntoView({behavior:'smooth'})">
+                Learn More
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="hero__image reveal" id="hero-float">
+          <img src="assets/images/hero-vr.png" alt="CORTEX VR immersive experience" 
+               onerror="this.parentElement.innerHTML='<div style=&quot;width:100%;height:400px;border-radius:1.5rem;background:linear-gradient(135deg,rgba(123,47,255,0.2),rgba(0,245,212,0.15));display:flex;align-items:center;justify-content:center;font-size:4rem;border:1px solid rgba(255,255,255,0.06)&quot;>🧠</div>'">
+        </div>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="container">
+        <div class="stats-row">
+          <div class="stat-item reveal">
+            <div class="stat-item__value" data-count="5">5</div>
+            <div class="stat-item__label">Cognitive VR Modules</div>
+          </div>
+          <div class="stat-item reveal reveal--delay-1">
+            <div class="stat-item__value" data-count="360">360°</div>
+            <div class="stat-item__label">Immersive Environments</div>
+          </div>
+          <div class="stat-item reveal reveal--delay-2">
+            <div class="stat-item__value">∞</div>
+            <div class="stat-item__label">Creative Possibilities</div>
+          </div>
+          <div class="stat-item reveal reveal--delay-3">
+            <div class="stat-item__value">2.8x</div>
+            <div class="stat-item__label">Memory Recall Boost</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Features Section -->
+      <div class="section" id="features-section">
+        <div class="container">
+          <div class="section__header">
+            <div class="section__label reveal">
+              <span>◆</span> Five Cognitive VR Experiences
+            </div>
+            <h2 class="section__title reveal reveal--delay-1">
+              Technology That <span class="heading-gradient">Thinks With You</span>
+            </h2>
+            <p class="section__subtitle reveal reveal--delay-2">
+              Each module is grounded in neuroscience and human cognition — not just entertainment.
+            </p>
+          </div>
+
+          <div class="features-grid">
+
+            <!-- Feature 1: EmpathOS -->
+            <div class="feature-card reveal" onclick="navigateTo('empathos')">
+              <div class="feature-card__image-wrapper">
+                <img class="feature-card__image" src="assets/images/empathos.png" alt="EmpathOS perspective embodiment"
+                     onerror="this.style.background='linear-gradient(135deg,rgba(123,47,255,0.3),rgba(123,47,255,0.1))'; this.style.display='block'">
+              </div>
+              <div class="feature-card__body">
+                <div class="feature-card__icon feature-card__icon--purple">👁️</div>
+                <h3 class="feature-card__title">EmpathOS</h3>
+                <p class="feature-card__desc">
+                  Step into different bodies and perceive the world through someone else's 
+                  neurological and physical experience. Wheelchair users, visual impairment, 
+                  aging — build real empathy through embodiment.
+                </p>
+                <span class="feature-card__cta">Enter Perspective →</span>
+              </div>
+            </div>
+
+            <!-- Feature 2: BioSync -->
+            <div class="feature-card reveal reveal--delay-1" onclick="navigateTo('biosync')">
+              <div class="feature-card__image-wrapper">
+                <img class="feature-card__image" src="assets/images/biosync.png" alt="BioSync adaptive environments"
+                     onerror="this.style.background='linear-gradient(135deg,rgba(0,245,212,0.3),rgba(0,245,212,0.1))'; this.style.display='block'">
+              </div>
+              <div class="feature-card__body">
+                <div class="feature-card__icon feature-card__icon--mint">💓</div>
+                <h3 class="feature-card__title">BioSync</h3>
+                <p class="feature-card__desc">
+                  VR environments that morph in real-time to your biometrics — heart rate, 
+                  breathing, stress levels. The world calms when you're anxious, 
+                  sharpens when you need focus.
+                </p>
+                <span class="feature-card__cta">View Dashboard →</span>
+              </div>
+            </div>
+
+            <!-- Feature 3: Mnemo -->
+            <div class="feature-card reveal reveal--delay-2" onclick="navigateTo('mnemo')">
+              <div class="feature-card__image-wrapper">
+                <img class="feature-card__image" src="assets/images/mnemo.png" alt="Mnemo spatial knowledge architecture"
+                     onerror="this.style.background='linear-gradient(135deg,rgba(255,107,107,0.3),rgba(255,107,107,0.1))'; this.style.display='block'">
+              </div>
+              <div class="feature-card__body">
+                <div class="feature-card__icon feature-card__icon--coral">🏛️</div>
+                <h3 class="feature-card__title">Mnemo</h3>
+                <p class="feature-card__desc">
+                  Build 3D "Memory Palaces" using the ancient Method of Loci. 
+                  Anchor any knowledge to spatial locations — proven by neuroscience to 
+                  boost recall by 2-3x over traditional study.
+                </p>
+                <span class="feature-card__cta">Build Palace →</span>
+              </div>
+            </div>
+
+            <!-- Feature 4: ChronoLens -->
+            <div class="feature-card reveal reveal--delay-3" onclick="navigateTo('chronolens')">
+              <div class="feature-card__image-wrapper">
+                <img class="feature-card__image" src="assets/images/chronolens.png" alt="ChronoLens temporal reality layers"
+                     onerror="this.style.background='linear-gradient(135deg,rgba(77,168,255,0.3),rgba(77,168,255,0.1))'; this.style.display='block'">
+              </div>
+              <div class="feature-card__body">
+                <div class="feature-card__icon feature-card__icon--blue">⏳</div>
+                <h3 class="feature-card__title">ChronoLens</h3>
+                <p class="feature-card__desc">
+                  Overlay time periods onto real locations. Walk through KL in 1957, 
+                  ancient Malacca during the Sultanate era, or witness historical events 
+                  unfolding around you in full 360°.
+                </p>
+                <span class="feature-card__cta">Explore Eras →</span>
+              </div>
+            </div>
+
+            <!-- Feature 5: SynAesthesia -->
+            <div class="feature-card reveal reveal--delay-4" onclick="navigateTo('synaesthesia')">
+              <div class="feature-card__image-wrapper">
+                <img class="feature-card__image" src="assets/images/synaesthesia.png" alt="SynAesthesia cross-modal creative engine"
+                     onerror="this.style.background='linear-gradient(135deg,rgba(255,217,61,0.3),rgba(255,217,61,0.1))'; this.style.display='block'">
+              </div>
+              <div class="feature-card__body">
+                <div class="feature-card__icon feature-card__icon--gold">🎨</div>
+                <h3 class="feature-card__title">SynAesthesia</h3>
+                <p class="feature-card__desc">
+                  Remap your senses: compose music by sculpting 3D forms, paint with 
+                  your voice, feel textures as colors. A creative engine that only exists 
+                  in VR — unlocking expression for all abilities.
+                </p>
+                <span class="feature-card__cta">Open Studio →</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="container">
+          <div class="footer__inner">
+            <div class="footer__brand heading-gradient">CORTEX VR</div>
+            <div class="footer__credit">
+              Designed & Developed by <span class="footer__credit-name">Pranav Sarotra</span>
+              · ITS69004 Human Computer Interaction
+            </div>
+          </div>
+        </div>
+      </footer>
+
+    </section>
+
+    <!-- ================================================================
+         SCREEN 3: EmpathOS — Perspective Embodiment
+         ================================================================ -->
+    <section class="screen" id="screen-empathos">
+      <div class="section">
+        <div class="container">
+          <div class="section__header">
+            <div class="section__label reveal">
+              <span>👁️</span> EmpathOS — Perspective Embodiment Engine
+            </div>
+            <h2 class="section__title reveal reveal--delay-1">
+              Walk in <span class="heading-gradient">Someone Else's World</span>
+            </h2>
+            <p class="section__subtitle reveal reveal--delay-2">
+              Choose a perspective. Your body, senses, and environment adapt. 
+              Build genuine empathy through lived experience, not just observation.
+            </p>
+          </div>
+
+          <!-- Perspective selector cards -->
+          <div class="empathos-perspectives">
+
+            <div class="perspective-card reveal">
+              <div class="perspective-card__avatar" style="background: rgba(123,47,255,0.15);">♿</div>
+              <h4 class="perspective-card__title">Wheelchair User</h4>
+              <p class="perspective-card__desc">
+                Navigate a world designed for standing people. Experience doorways, ramps, 
+                public transport, and social interactions from seated height.
+              </p>
+              <div class="perspective-card__filters">
+                <span class="filter-tag">Mobility</span>
+                <span class="filter-tag">Spatial Awareness</span>
+                <span class="filter-tag">Social Dynamics</span>
+              </div>
+            </div>
+
+            <div class="perspective-card reveal reveal--delay-1">
+              <div class="perspective-card__avatar" style="background: rgba(0,245,212,0.15);">👴</div>
+              <h4 class="perspective-card__title">Elderly (Age 80+)</h4>
+              <p class="perspective-card__desc">
+                Experience reduced mobility, visual degradation (macular degeneration), 
+                hearing loss, and slower reaction times in everyday scenarios.
+              </p>
+              <div class="perspective-card__filters">
+                <span class="filter-tag">Motor Decline</span>
+                <span class="filter-tag">Vision Loss</span>
+                <span class="filter-tag">Hearing</span>
+              </div>
+            </div>
+
+            <div class="perspective-card reveal reveal--delay-2">
+              <div class="perspective-card__avatar" style="background: rgba(255,107,107,0.15);">🧒</div>
+              <h4 class="perspective-card__title">Child (Age 5)</h4>
+              <p class="perspective-card__desc">
+                See the world at 3.5ft tall. Everything is oversized, overwhelming, 
+                and wondrous. Experience how environments designed for adults feel to children.
+              </p>
+              <div class="perspective-card__filters">
+                <span class="filter-tag">Scale Shift</span>
+                <span class="filter-tag">Wonder</span>
+                <span class="filter-tag">Vulnerability</span>
+              </div>
+            </div>
+
+            <div class="perspective-card reveal reveal--delay-3">
+              <div class="perspective-card__avatar" style="background: rgba(77,168,255,0.15);">🦯</div>
+              <h4 class="perspective-card__title">Visual Impairment</h4>
+              <p class="perspective-card__desc">
+                Experience varying degrees of blindness — from tunnel vision to complete 
+                darkness. Navigate using spatial audio cues, haptic feedback, and memory.
+              </p>
+              <div class="perspective-card__filters">
+                <span class="filter-tag">Spatial Audio</span>
+                <span class="filter-tag">Haptic Nav</span>
+                <span class="filter-tag">Adaptation</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Session Preview Panel -->
+          <div class="glass-card reveal" style="margin-top: var(--space-2xl);">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: center;">
+              <div>
+                <h4 style="margin-bottom: var(--space-md);">Active Session Preview</h4>
+                <p class="text-muted" style="margin-bottom: var(--space-lg); line-height: 1.7;">
+                  Each perspective applies real-time sensory filters to your VR environment:
+                  visual distortion, altered field of view, modified audio processing, 
+                  and adjusted movement physics.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+                  <div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs);">
+                      <span class="text-sm">Visual Filter Intensity</span>
+                      <span class="text-sm" style="color: var(--accent-mint);">72%</span>
+                    </div>
+                    <div class="biosync-bar">
+                      <div class="biosync-bar__fill biosync-bar__fill--mint" style="width: 72%;"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs);">
+                      <span class="text-sm">Motor Constraint Level</span>
+                      <span class="text-sm" style="color: var(--primary);">45%</span>
+                    </div>
+                    <div class="biosync-bar">
+                      <div class="biosync-bar__fill biosync-bar__fill--purple" style="width: 45%;"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-xs);">
+                      <span class="text-sm">Audio Modification</span>
+                      <span class="text-sm" style="color: var(--accent-coral);">30%</span>
+                    </div>
+                    <div class="biosync-bar">
+                      <div class="biosync-bar__fill biosync-bar__fill--coral" style="width: 30%;"></div>
+                    </div>
+                  </div>
+                </div>
+                <button class="btn btn--primary" style="margin-top: var(--space-xl);">Start Embodiment Session</button>
+              </div>
+              <div style="position: relative; height: 320px; border-radius: var(--radius-lg); overflow: hidden; background: linear-gradient(135deg, rgba(123,47,255,0.15), rgba(0,245,212,0.1)); display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-subtle);">
+                <img src="assets/images/empathos-preview.png" alt="Perspective session preview" style="width:100%;height:100%;object-fit:cover;"
+                     onerror="this.style.display='none'; this.parentElement.innerHTML+='<div style=&quot;text-align:center;&quot;><div style=&quot;font-size:4rem;margin-bottom:1rem;&quot;>👁️‍🗨️</div><p style=&quot;color:var(--text-secondary);font-size:0.875rem&quot;>Perspective Simulation View</p></div>'">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="container">
+          <div class="footer__inner">
+            <div class="footer__brand heading-gradient">CORTEX VR</div>
+            <div class="footer__credit">Designed & Developed by <span class="footer__credit-name">Pranav Sarotra</span></div>
+          </div>
+        </div>
+      </footer>
+    </section>
+
+    <!-- ================================================================
+         SCREEN 4: BioSync — Adaptive Biometric Environments
+         ================================================================ -->
+    <section class="screen" id="screen-biosync">
+      <div class="section">
+        <div class="container">
+          <div class="section__header">
+            <div class="section__label reveal">
+              <span>💓</span> BioSync — Adaptive Biometric Environments
+            </div>
+            <h2 class="section__title reveal reveal--delay-1">
+              Your Body <span class="heading-gradient">Shapes Your World</span>
+            </h2>
+            <p class="section__subtitle reveal reveal--delay-2">
+              Real-time biometric data from wearables transforms your VR environment 
+              into a living biofeedback system.
+            </p>
+          </div>
+
+          <!-- Biometric Dashboard -->
+          <div class="biosync-dashboard">
+
+            <div class="biosync-metric reveal">
+              <div class="biosync-metric__header">
+                <span class="biosync-metric__label">Heart Rate</span>
+                <span class="text-sm" style="color: var(--accent-coral);">● Live</span>
+              </div>
+              <div class="biosync-metric__value biosync-metric__value--coral" id="heart-rate">72 <span style="font-size: var(--text-lg); opacity: 0.6;">BPM</span></div>
+              <div class="biosync-bar">
+                <div class="biosync-bar__fill biosync-bar__fill--coral" style="width: 65%;" id="heart-bar"></div>
+              </div>
+              <p class="text-sm text-muted" style="margin-top: var(--space-md);">Normal range · Environment: Neutral</p>
+            </div>
+
+            <div class="biosync-metric reveal reveal--delay-1">
+              <div class="biosync-metric__header">
+                <span class="biosync-metric__label">Stress Level</span>
+                <span class="text-sm" style="color: var(--accent-mint);">● Monitoring</span>
+              </div>
+              <div class="biosync-metric__value biosync-metric__value--mint" id="stress-level">28 <span style="font-size: var(--text-lg); opacity: 0.6;">/ 100</span></div>
+              <div class="biosync-bar">
+                <div class="biosync-bar__fill biosync-bar__fill--mint" style="width: 28%;" id="stress-bar"></div>
+              </div>
+              <p class="text-sm text-muted" style="margin-top: var(--space-md);">Low stress · Environment: Energizing</p>
+            </div>
+
+            <div class="biosync-metric reveal reveal--delay-2">
+              <div class="biosync-metric__header">
+                <span class="biosync-metric__label">Breathing Rate</span>
+                <span class="text-sm" style="color: var(--primary);">● Synced</span>
+              </div>
+              <div class="biosync-metric__value biosync-metric__value--purple" id="breath-rate">16 <span style="font-size: var(--text-lg); opacity: 0.6;">BrPM</span></div>
+              <div class="biosync-bar">
+                <div class="biosync-bar__fill biosync-bar__fill--purple" style="width: 53%;" id="breath-bar"></div>
+              </div>
+              <p class="text-sm text-muted" style="margin-top: var(--space-md);">Steady rhythm · Environment matches pace</p>
+            </div>
+
+            <div class="biosync-metric reveal reveal--delay-3">
+              <div class="biosync-metric__header">
+                <span class="biosync-metric__label">Focus Index</span>
+                <span class="text-sm" style="color: var(--accent-blue);">● Active</span>
+              </div>
+              <div class="biosync-metric__value biosync-metric__value--blue" id="focus-index">84 <span style="font-size: var(--text-lg); opacity: 0.6;">%</span></div>
+              <div class="biosync-bar">
+                <div class="biosync-bar__fill biosync-bar__fill--blue" style="width: 84%;" id="focus-bar"></div>
+              </div>
+              <p class="text-sm text-muted" style="margin-top: var(--space-md);">High focus · Distractions minimized</p>
+            </div>
+
+            <!-- Environment Preview -->
+            <div class="biosync-environment reveal">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-lg);">
+                <div>
+                  <h4>Current Adaptive Environment</h4>
+                  <p class="text-sm text-muted" style="margin-top: var(--space-xs);">Environment morphs based on your combined biometric profile</p>
+                </div>
+                <div style="display: flex; gap: var(--space-sm);">
+                  <button class="btn btn--ghost" style="font-size: var(--text-xs);">🌊 Calm</button>
+                  <button class="btn btn--ghost" style="font-size: var(--text-xs); background: rgba(123,47,255,0.1); color: var(--primary);">⚡ Focus</button>
+                  <button class="btn btn--ghost" style="font-size: var(--text-xs);">🔥 Energy</button>
+                </div>
+              </div>
+              <div class="biosync-environment__preview" style="background: linear-gradient(135deg, rgba(123,47,255,0.2), rgba(0,245,212,0.15), rgba(77,168,255,0.1)); display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-subtle);">
+                <img src="assets/images/biosync-env.png" alt="Adaptive VR environment responding to biometrics"
+                     onerror="this.style.display='none'; this.parentElement.innerHTML+='<div style=&quot;text-align:center;&quot;><div style=&quot;font-size:4rem;margin-bottom:1rem;animation:float 3s ease-in-out infinite&quot;>🌌</div><p style=&quot;color:var(--text-secondary);&quot;>Focus-Mode Environment Active</p><p class=&quot;text-xs text-muted&quot; style=&quot;margin-top:0.5rem&quot;>Biometric profile: Low stress · High focus · Steady breathing</p></div>'">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="container">
+          <div class="footer__inner">
+            <div class="footer__brand heading-gradient">CORTEX VR</div>
+            <div class="footer__credit">Designed & Developed by <span class="footer__credit-name">Pranav Sarotra</span></div>
+          </div>
+        </div>
+      </footer>
+    </section>
+
+    <!-- ================================================================
+         SCREEN 5: Mnemo — Spatial Knowledge Architecture
+         ================================================================ -->
+    <section class="screen" id="screen-mnemo">
+      <div class="section">
+        <div class="container">
+          <div class="section__header">
+            <div class="section__label reveal">
+              <span>🏛️</span> Mnemo — Spatial Knowledge Architecture
+            </div>
+            <h2 class="section__title reveal reveal--delay-1">
+              Build Your <span class="heading-gradient">Memory Palace</span>
+            </h2>
+            <p class="section__subtitle reveal reveal--delay-2">
+              Place knowledge in 3D space. Walk through it to recall. 
+              The Method of Loci, supercharged by VR.
+            </p>
+          </div>
+
+          <!-- Palace Builder -->
+          <div class="mnemo-palace reveal">
+
+            <!-- Sidebar: Rooms -->
+            <div class="mnemo-sidebar">
+              <h5 class="mnemo-sidebar__title">Palace Rooms</h5>
+              <div class="mnemo-room mnemo-room--active">
+                <div class="mnemo-room__icon">📚</div>
+                <div>
+                  <div class="mnemo-room__name">Grand Library</div>
+                  <div class="mnemo-room__count">12 knowledge nodes</div>
+                </div>
+              </div>
+              <div class="mnemo-room">
+                <div class="mnemo-room__icon">🧪</div>
+                <div>
+                  <div class="mnemo-room__name">Chemistry Lab</div>
+                  <div class="mnemo-room__count">8 knowledge nodes</div>
+                </div>
+              </div>
+              <div class="mnemo-room">
+                <div class="mnemo-room__icon">🌍</div>
+                <div>
+                  <div class="mnemo-room__name">Globe Room</div>
+                  <div class="mnemo-room__count">15 knowledge nodes</div>
+                </div>
+              </div>
+              <div class="mnemo-room">
+                <div class="mnemo-room__icon">🎵</div>
+                <div>
+                  <div class="mnemo-room__name">Music Hall</div>
+                  <div class="mnemo-room__count">6 knowledge nodes</div>
+                </div>
+              </div>
+              <div class="mnemo-room">
+                <div class="mnemo-room__icon">🏗️</div>
+                <div>
+                  <div class="mnemo-room__name">Architecture Wing</div>
+                  <div class="mnemo-room__count">10 knowledge nodes</div>
+                </div>
+              </div>
+              <div style="margin-top: var(--space-lg);">
+                <button class="btn btn--outline" style="width: 100%; justify-content: center;">+ Create Room</button>
+              </div>
+            </div>
+
+            <!-- Main Canvas -->
+            <div class="mnemo-canvas">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-lg);">
+                <div>
+                  <h4>Grand Library</h4>
+                  <p class="text-sm text-muted">12 knowledge nodes · Last visited 2h ago</p>
+                </div>
+                <div style="display: flex; gap: var(--space-sm);">
+                  <button class="btn btn--primary" style="padding: var(--space-sm) var(--space-md); font-size: var(--text-sm);">🚶 Walk Through</button>
+                  <button class="btn btn--outline" style="padding: var(--space-sm) var(--space-md); font-size: var(--text-sm);">📝 Quiz Me</button>
+                </div>
+              </div>
+
+              <div class="mnemo-canvas__viewport" style="background: linear-gradient(135deg, rgba(255,107,107,0.1), rgba(123,47,255,0.15), rgba(0,245,212,0.08)); border: 1px solid var(--border-subtle);">
+                <img src="assets/images/mnemo-palace.png" alt="Virtual memory palace interior"
+                     onerror="this.style.display='none'">
+                <!-- Knowledge Nodes (floating points in the 3D space) -->
+                <div class="mnemo-node" style="top: 20%; left: 25%; animation-delay: 0s;" title="Quantum Mechanics">Q</div>
+                <div class="mnemo-node" style="top: 40%; left: 55%; animation-delay: 0.5s; background: var(--gradient-warm);" title="Thermodynamics">T</div>
+                <div class="mnemo-node" style="top: 60%; left: 35%; animation-delay: 1s; background: var(--gradient-cool);" title="Wave Theory">W</div>
+                <div class="mnemo-node" style="top: 30%; left: 75%; animation-delay: 1.5s;" title="Relativity">R</div>
+                <div class="mnemo-node" style="top: 70%; left: 70%; animation-delay: 0.7s; background: var(--accent-mint);" title="Electromagnetism">E</div>
+              </div>
+
+              <div class="mnemo-toolbar">
+                <button class="mnemo-tool">📌 Add Node</button>
+                <button class="mnemo-tool">🔗 Link Nodes</button>
+                <button class="mnemo-tool">🎨 Change Theme</button>
+                <button class="mnemo-tool">📐 Resize Room</button>
+                <button class="mnemo-tool">↩️ Undo</button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Recall Stats -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg); margin-top: var(--space-2xl);">
+            <div class="glass-card reveal">
+              <h5 style="color: var(--accent-mint); margin-bottom: var(--space-sm);">Recall Accuracy</h5>
+              <div style="font-family: var(--font-heading); font-size: var(--text-4xl); font-weight: 700;">94%</div>
+              <p class="text-sm text-muted" style="margin-top: var(--space-xs);">↑ 12% from last week</p>
+            </div>
+            <div class="glass-card reveal reveal--delay-1">
+              <h5 style="color: var(--primary); margin-bottom: var(--space-sm);">Study Sessions</h5>
+              <div style="font-family: var(--font-heading); font-size: var(--text-4xl); font-weight: 700;">23</div>
+              <p class="text-sm text-muted" style="margin-top: var(--space-xs);">This month</p>
+            </div>
+            <div class="glass-card reveal reveal--delay-2">
+              <h5 style="color: var(--accent-coral); margin-bottom: var(--space-sm);">Knowledge Nodes</h5>
+              <div style="font-family: var(--font-heading); font-size: var(--text-4xl); font-weight: 700;">51</div>
+              <p class="text-sm text-muted" style="margin-top: var(--space-xs);">Across 5 rooms</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="container">
+          <div class="footer__inner">
+            <div class="footer__brand heading-gradient">CORTEX VR</div>
+            <div class="footer__credit">Designed & Developed by <span class="footer__credit-name">Pranav Sarotra</span></div>
+          </div>
+        </div>
+      </footer>
+    </section>
+
+    <!-- ================================================================
+         SCREEN 6: ChronoLens — Temporal Reality Layers
+         ================================================================ -->
+    <section class="screen" id="screen-chronolens">
+      <div class="section">
+        <div class="container">
+          <div class="section__header">
+            <div class="section__label reveal">
+              <span>⏳</span> ChronoLens — Temporal Reality Layers
+            </div>
+            <h2 class="section__title reveal reveal--delay-1">
+              Witness History <span class="heading-gradient">Unfold Around You</span>
+            </h2>
+            <p class="section__subtitle reveal reveal--delay-2">
+              Overlay time periods onto real-world locations. Step into the past 
+              and watch events play out in immersive 360°.
+            </p>
+          </div>
+
+          <!-- Timeline Selector -->
+          <div class="chrono-timeline reveal">
+            <button class="chrono-era" data-year="1400">1400s</button>
+            <button class="chrono-era" data-year="1511">1511</button>
+            <button class="chrono-era" data-year="1824">1824</button>
+            <button class="chrono-era chrono-era--active" data-year="1957">1957</button>
+            <button class="chrono-era" data-year="1969">1969</button>
+            <button class="chrono-era" data-year="1998">1998</button>
+            <button class="chrono-era" data-year="2050">2050 ✦</button>
+          </div>
+
+          <!-- Scene Viewer -->
+          <div class="chrono-scene reveal">
+            <img class="chrono-scene__image" src="assets/images/chrono-merdeka.png" alt="Merdeka Declaration 1957 — Virtual reconstruction"
+                 onerror="this.style.background='linear-gradient(135deg,rgba(77,168,255,0.2),rgba(123,47,255,0.15),rgba(255,217,61,0.1))'; this.style.display='block'">
+            <div class="chrono-scene__overlay">
+              <span class="chrono-scene__location">📍 Dataran Merdeka, Kuala Lumpur</span>
+              <h3 class="chrono-scene__title">Merdeka Declaration — 31 August 1957</h3>
+              <p class="chrono-scene__desc">
+                Stand among the crowd as Tunku Abdul Rahman proclaims "Merdeka!" seven times. 
+                Experience the birth of an independent nation through AI-reconstructed 
+                photogrammetry and spatial audio capturing the roar of 20,000 voices.
+              </p>
+              <div style="display: flex; gap: var(--space-md); margin-top: var(--space-lg);">
+                <button class="btn btn--primary">▶ Begin Time Walk</button>
+                <button class="btn btn--outline">🎧 Preview Audio</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Info Cards -->
+          <div class="chrono-info-cards">
+            <div class="chrono-info-card reveal">
+              <div class="chrono-info-card__icon">🏛️</div>
+              <div class="chrono-info-card__title">Heritage Sites</div>
+              <div class="chrono-info-card__value">42 reconstructed locations across Malaysia and globally</div>
+            </div>
+            <div class="chrono-info-card reveal reveal--delay-1">
+              <div class="chrono-info-card__icon">🎭</div>
+              <div class="chrono-info-card__title">Living Events</div>
+              <div class="chrono-info-card__value">78 historical moments with AI-narrated characters and spatial audio</div>
+            </div>
+            <div class="chrono-info-card reveal reveal--delay-2">
+              <div class="chrono-info-card__icon">🔮</div>
+              <div class="chrono-info-card__title">Future Projections</div>
+              <div class="chrono-info-card__value">AI-modeled predictions of how locations may look in 2050 and beyond</div>
+            </div>
+          </div>
+
+          <!-- More Experiences -->
+          <h4 style="margin-top: var(--space-3xl); margin-bottom: var(--space-xl);" class="reveal">More Temporal Experiences</h4>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg);">
+            <div class="glass-card reveal" style="cursor: pointer;">
+              <div style="font-size: 2rem; margin-bottom: var(--space-md);">🏰</div>
+              <h5>Malacca Sultanate</h5>
+              <p class="text-sm text-muted" style="margin-top: var(--space-xs);">1400s · Walk the bustling port city during its golden age of trade</p>
+            </div>
+            <div class="glass-card reveal reveal--delay-1" style="cursor: pointer;">
+              <div style="font-size: 2rem; margin-bottom: var(--space-md);">🚀</div>
+              <h5>Moon Landing 1969</h5>
+              <p class="text-sm text-muted" style="margin-top: var(--space-xs);">Step onto the lunar surface alongside Armstrong in zero gravity</p>
+            </div>
+            <div class="glass-card reveal reveal--delay-2" style="cursor: pointer;">
+              <div style="font-size: 2rem; margin-bottom: var(--space-md);">🏙️</div>
+              <h5>KL 2050 — AI Vision</h5>
+              <p class="text-sm text-muted" style="margin-top: var(--space-xs);">AI-projected future cityscape with flying transit & vertical gardens</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="container">
+          <div class="footer__inner">
+            <div class="footer__brand heading-gradient">CORTEX VR</div>
+            <div class="footer__credit">Designed & Developed by <span class="footer__credit-name">Pranav Sarotra</span></div>
+          </div>
+        </div>
+      </footer>
+    </section>
+
+    <!-- ================================================================
+         SCREEN 7: SynAesthesia — Cross-Modal Creative Engine
+         ================================================================ -->
+    <section class="screen" id="screen-synaesthesia">
+      <div class="section">
+        <div class="container">
+          <div class="section__header">
+            <div class="section__label reveal">
+              <span>🎨</span> SynAesthesia — Cross-Modal Creative Engine
+            </div>
+            <h2 class="section__title reveal reveal--delay-1">
+              Create With <span class="heading-gradient">Every Sense</span>
+            </h2>
+            <p class="section__subtitle reveal reveal--delay-2">
+              Remap your senses. Sculpt music. Paint with your voice. 
+              A creative revolution only possible in virtual reality.
+            </p>
+          </div>
+
+          <!-- Studio Interface -->
+          <div class="syn-studio reveal">
+
+            <!-- Main Canvas -->
+            <div class="syn-canvas">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-lg);">
+                <h4>Creative Canvas</h4>
+                <div style="display: flex; gap: var(--space-sm);">
+                  <button class="btn btn--ghost text-sm">↩️ Undo</button>
+                  <button class="btn btn--ghost text-sm">🔄 Reset</button>
+                  <button class="btn btn--primary" style="padding: var(--space-sm) var(--space-md); font-size: var(--text-sm);">💾 Save Creation</button>
+                </div>
+              </div>
+              <div class="syn-canvas__viewport" style="background: linear-gradient(135deg, rgba(123,47,255,0.15), rgba(0,245,212,0.1), rgba(255,107,107,0.08)); border: 1px solid var(--border-subtle);">
+                <img src="assets/images/syn-canvas.png" alt="Cross-modal creative visualization"
+                     onerror="this.style.display='none'">
+                <!-- Audio Visualizer Bars -->
+                <div class="syn-visualizer" id="syn-visualizer">
+                  <!-- Bars are generated by JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Control Panel -->
+            <div class="syn-panel">
+              <h5 class="syn-panel__title">Sense Mapping</h5>
+
+              <div class="syn-mode syn-mode--active">
+                <div class="syn-mode__icon" style="background: rgba(123,47,255,0.15);">🎵</div>
+                <div>
+                  <div class="syn-mode__name">Sound → Form</div>
+                  <div class="syn-mode__desc">Music becomes 3D sculpture</div>
+                </div>
+              </div>
+
+              <div class="syn-mode">
+                <div class="syn-mode__icon" style="background: rgba(0,245,212,0.15);">🗣️</div>
+                <div>
+                  <div class="syn-mode__name">Voice → Color</div>
+                  <div class="syn-mode__desc">Speech paints the canvas</div>
+                </div>
+              </div>
+
+              <div class="syn-mode">
+                <div class="syn-mode__icon" style="background: rgba(255,107,107,0.15);">✋</div>
+                <div>
+                  <div class="syn-mode__name">Touch → Music</div>
+                  <div class="syn-mode__desc">Textures generate melodies</div>
+                </div>
+              </div>
+
+              <div class="syn-mode">
+                <div class="syn-mode__icon" style="background: rgba(255,217,61,0.15);">💨</div>
+                <div>
+                  <div class="syn-mode__name">Motion → Light</div>
+                  <div class="syn-mode__desc">Body movement creates light trails</div>
+                </div>
+              </div>
+
+              <hr style="border: none; border-top: 1px solid var(--border-subtle); margin: var(--space-sm) 0;">
+
+              <div class="syn-slider">
+                <div class="syn-slider__label">
+                  <span>Sensitivity</span>
+                  <span style="color: var(--accent-mint);">72%</span>
+                </div>
+                <input type="range" class="syn-slider__input" min="0" max="100" value="72">
+              </div>
+
+              <div class="syn-slider">
+                <div class="syn-slider__label">
+                  <span>Complexity</span>
+                  <span style="color: var(--primary);">58%</span>
+                </div>
+                <input type="range" class="syn-slider__input" min="0" max="100" value="58">
+              </div>
+
+              <div class="syn-slider">
+                <div class="syn-slider__label">
+                  <span>Color Saturation</span>
+                  <span style="color: var(--accent-coral);">85%</span>
+                </div>
+                <input type="range" class="syn-slider__input" min="0" max="100" value="85">
+              </div>
+
+              <button class="btn btn--coral" style="width: 100%; justify-content: center; margin-top: var(--space-sm);">
+                🎙️ Start Recording
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Gallery Preview -->
+          <h4 style="margin-top: var(--space-3xl); margin-bottom: var(--space-xl);" class="reveal">Community Creations</h4>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-lg);">
+            <div class="glass-card reveal" style="text-align: center; cursor: pointer;">
+              <div style="font-size: 2.5rem; margin-bottom: var(--space-md);">🎶</div>
+              <h6>"Ocean Breath"</h6>
+              <p class="text-xs text-muted" style="margin-top: var(--space-xs);">Voice → Color · by @aria_waves</p>
+            </div>
+            <div class="glass-card reveal reveal--delay-1" style="text-align: center; cursor: pointer;">
+              <div style="font-size: 2.5rem; margin-bottom: var(--space-md);">🗿</div>
+              <h6>"Neural Cathedral"</h6>
+              <p class="text-xs text-muted" style="margin-top: var(--space-xs);">Sound → Form · by @sculpt_mind</p>
+            </div>
+            <div class="glass-card reveal reveal--delay-2" style="text-align: center; cursor: pointer;">
+              <div style="font-size: 2.5rem; margin-bottom: var(--space-md);">💃</div>
+              <h6>"Light Dance"</h6>
+              <p class="text-xs text-muted" style="margin-top: var(--space-xs);">Motion → Light · by @flow_state</p>
+            </div>
+            <div class="glass-card reveal reveal--delay-3" style="text-align: center; cursor: pointer;">
+              <div style="font-size: 2.5rem; margin-bottom: var(--space-md);">🌊</div>
+              <h6>"Tactile Sea"</h6>
+              <p class="text-xs text-muted" style="margin-top: var(--space-xs);">Touch → Music · by @haptic_poet</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="container">
+          <div class="footer__inner">
+            <div class="footer__brand heading-gradient">CORTEX VR</div>
+            <div class="footer__credit">Designed & Developed by <span class="footer__credit-name">Pranav Sarotra</span></div>
+          </div>
+        </div>
+      </footer>
+    </section>
+
+  </div> <!-- /.app-container -->
+
+  <script src="js/app.js"></script>
+</body>
+</html>
